@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4643 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>Noble</title>
+
+        <link rel="stylesheet" href="css/jquery.mobile.custom.structure.min.css">
+        <link rel="stylesheet" href="css/jquery.mobile.noble.min.css">
+        <link rel="stylesheet" href="css/fonts/stylesheet.css">
+        <link rel="stylesheet" href="css/tomstyle.css">
+        <link rel="stylesheet" href="css/pienstyle.css">
+        
+        
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script src="js/jquery-1.8.3.min.js"></script>
+
+        <script src="js/jquery.mobile.custom.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script src="js/jquery.jsonp.js"></script>
+        <script src="js/functions.js"></script>
+
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="js/googlemaps.js"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            // Wait for device API libraries to load
+            //
+            document.addEventListener("deviceready", onDeviceReady, false);
+            var watchID = null;
+
+            // device APIs are available
+            //
+            function onDeviceReady() {
+                var options = { frequency: 3000 };
+                watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+            }
+
+            // onSuccess Geolocation
+            //
+            function onSuccess(position) {
+                var canvas = document.getElementById('map_canvas');
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                var alt = position.coords.altitude;
+                var acc = position.coords.accuracy;
+                var altAcc = position.coords.altitudeAccuracy;
+                var head = position.coords.heading;
+                var spd = position.coords.speed;
+                var time = position.timestamp;
+
+                //canvas.innerHTML = '<p style="font-size:50px;">'+lat+'</p><p style="font-size:50px;>'+lng+'</p>';
+                var map = new GoogleMap(lat, lng, canvas);
+                map.initialize();
+
+                //Hier ook versturen van coordinaten!
+            }
+
+            // clear the watch that was started earlier
+            // 
+            function clearWatch() {
+                if (watchID != null) {
+                    navigator.geolocation.clearWatch(watchID);
+                    watchID = null;
+                }
+            }
+
+            // onError Callback receives a PositionError object
+            //
+            function onError(error) {
+                alert('code: '    + error.code    + '\n' +
+                      'message: ' + error.message + '\n');
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <!-- PAGE 1 -->
+        <div data-role="page" id="page1" data-url="page1">
+            <!-- header -->
+            <div data-role="header" data-position="fixed">
+                <div class="logo">
+                    <img src="img/logo.png" class="ui-btn-left" />
+                </div>
+                <h1>People near you</h1>
+            </div>
+            <!-- end of header -->
+            <!-- main content -->
+            <div data-role="main" class="ui-content" id="map_canvas" style="overflow:hidden;">
+                <p>Finding geolocation...</p>
+            </div>
+            <!-- end of main content -->
+            <!-- footer -->
+            <div data-role="footer" data-position="fixed">
+                <nav data-role="navbar" class="ui-navbar" role="navigation">
+                    <ul>
+                        <li>
+                            <a href="#page1" class="ui-btn-active ui-state-persist">
+                                <img src="img/globe.png" alt="globe">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page2" data-transition="slide">
+                                <img src="img/inbox_in.png" alt="inbox_in">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page3" data-transition="slide">
+                                <img src="img/inbox_out.png" alt="inbox_out">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>     
+            </div>
+            <!-- end footer -->
+        </div>
+        <!-- END OF PAGE 1 -->
+        
+
+        <!-- PAGE 2 -->
+        <div data-role="page" id="page2">
+            <!-- header -->
+            <div data-role="header" data-position="fixed">
+                <div class="logo">
+                    <img src="img/logo.png" class="ui-btn-left" />
+                </div>
+                <h1>Received messages</h1>
+            </div>
+            <!-- end of header -->
+            <!-- main content -->
+            <div data-role="main" class="ui-content">
+                <ul data-role="listview" class="page2-list">
+                </ul>
+            </div>
+            <!-- end of main content -->
+            <!-- footer -->
+            <div data-role="footer" data-position="fixed">
+                <nav data-role="navbar" class="ui-navbar" role="navigation">
+                    <ul>
+                        <li>
+                            <a href="#page1" data-transition="slide" data-direction="reverse">
+                                <img src="img/globe.png" alt="globe">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page2" class="ui-btn-active ui-state-persist">
+                                <img src="img/inbox_in.png" alt="inbox_in">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page3" data-transition="slide">
+                                <img src="img/inbox_out.png" alt="inbox_out">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>     
+            </div>
+            <!-- end footer -->
+        </div>
+        <!-- END OF PAGE 2 -->
+
+
+        <!-- PAGE 3 -->
+        <div data-role="page" id="page3">
+            <!-- header -->
+            <div data-role="header" data-position="fixed">
+                <div class="logo">
+                    <img src="img/logo.png" class="ui-btn-left" />
+                </div>
+                <h1>Sent messages</h1>
+            </div>
+            <!-- end of header -->
+            <!-- main content -->
+            <div data-role="main" class="ui-content">
+                <ul data-role="listview" class="page3-list">
+                </ul>
+            </div>
+            <!-- end of main content -->
+            <!-- footer -->
+            <div data-role="footer" data-position="fixed">
+                <nav data-role="navbar" class="ui-navbar" role="navigation">
+                    <ul>
+                        <li>
+                            <a href="#page1" data-transition="slide" data-direction="reverse">
+                                <img src="img/globe.png" alt="globe">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page2" data-transition="slide" data-direction="reverse">
+                                <img src="img/inbox_in.png" alt="inbox_in">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page3" class="ui-btn-active ui-state-persist" data-transition="slide">
+                                <img src="img/inbox_out.png" alt="inbox_out">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>     
+            </div>
+            <!-- end footer -->
+            
+        </div>
+        <!-- END OF PAGE 3 -->
+
+
+        <!-- PAGE 4 -->
+        <div data-role="page" id="page4">
+            <!-- header -->
+            <div data-role="header" data-position="fixed">
+                <div class="logo">
+                    <img src="img/logo.png" class="ui-btn-left" />
+                </div>
+                <h1>Compose message</h1>
+            </div>
+            <!-- end of header -->
+            <!-- main content -->
+            <div data-role="main" class="ui-content">
+                <form action="postmessage.php" method="post">
+                    <textarea name="message" id="message">
+                    Message...
+                    </textarea>
+                    <input type="hidden" id="id" name="id" value="<!-- cookie?sessie? -->">
+                    <input type="hidden" id="lat" name="lat" value="<!-- cookie?sessie? -->">
+                    <input type="hidden" id="lng" name="lng" value="<!-- cookie?sessie? -->">
+                    <input type="hidden" id="lat" name="lat" value="<!-- cookie?sessie? -->">
+                    <input type="hidden" id="lat" name="lat" value="<!-- cookie?sessie? -->">
+                    <input type="hidden" id="id_to" name="id_to" value="<!-- cookie?sessie? -->">
+                    <input type="submit" value="Send">
+                </form>
+            </div>
+            <!-- end of main content -->
+        <!-- END OF PAGE 4 -->
+
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>
