@@ -1,0 +1,98 @@
+body {
+	background:url('../img/bg.jpg')  center;
+}
+
+.ui-btn-left {
+	width:69px;
+	height:23px;
+	margin-top:6px !important;
+	margin-left:4px !important;
+}
+
+.ui-content {
+	background:white;
+}
+
+.ui-header {
+	background:url('../img/bg.jpg')  no-repeat center;
+	-webkit-box-shadow: 0px 7px 30px 0px rgba(50, 50, 50, 0.53);
+	-moz-box-shadow:    0px 7px 30px 0px rgba(50, 50, 50, 0.53);
+	box-shadow:         0px 7px 30px 0px rgba(50, 50, 50, 0.53);
+}
+
+.ui-footer {
+	-webkit-box-shadow: 0px -7px 30px 0px rgba(50, 50, 50, 0.53);
+	-moz-box-shadow:    0px -7px 30px 0px rgba(50, 50, 50, 0.53);
+	box-shadow:         0px -7px 30px 0px rgba(50, 50, 50, 0.53);
+}
+
+.ui-btn-active {
+	border-bottom:solid 5px #af49de !important;
+	background:#ededed !important;
+	padding-bottom:5px !important;
+}
+
+.ui-navbar .ui-btn:hover {
+	border-bottom:solid 5px #af49de !important;
+	background:#ededed !important;
+	padding-bottom:5px !important;
+}
+
+.ui-navbar img {
+	width:32px;
+	height:32px;
+}
+.page3-list ul, .page2-list  ul {
+	list-style:none;
+	margin-left:0px;
+    background:url('../img/collapse_arrow_alt.png') left center no-repeat;
+    background-size:16px 16px;
+}
+.page3-list ul img, .page2-list  ul img{
+	width:10px;
+	height:10px;
+	display:inline;
+}
+.page3-list ul li, .page2-list  ul li{
+	 white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+    text-shadow:none;
+
+}
+.location_list {
+	font-size:12px;
+	margin-top:5px;
+}
+.date_list {
+	display:none;
+	font-size:12px;
+	margin-top:5px;
+}
+.message_list {
+	word-wrap: break-word;
+	font-weight:bolder;
+	font-size:14px;
+
+
+}
+.collapse_display {
+	display:block !important;
+}
+.collapse {
+		word-wrap: break-word;
+	overflow: visible !important;
+text-overflow: clip !important;
+white-space: normal !important;
+margin-bottom:10px;
+}
+
+.collapse_background {
+	background:url('../img/collapse_arrow_alt_up.png') left center no-repeat !important;
+	background-size:16px 16px !important;
+}
+
+.collapse_background:hover {
+	background:url('../img/collapse_arrow_alt_up.png') left center no-repeat !important;
+	background-size:16px 16px !important;
+}
