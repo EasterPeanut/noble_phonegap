@@ -1,112 +1,79 @@
-function GoogleMap(lat, lng, canvas){
-	var canvas = canvas;
-	var id = "1";
- 
+ var myPoints = [];
+ function loadMarkers(mylat,mylon,callback){
+  $.ajax({
+    type: "GET",
+    url: $baseUrl+"getchords.php?id="+id+"&lat="+mylat+"&lon="+mylon+"",
+    cache: "false",
+    dataType: "json",
+    success: function(data){  
+      if(!(jQuery.isEmptyObject(data))) {
+        $.each(data, function(index, element) {
+          // console.log(element[1].date);
+          for (var key in element) {
+            var obj = element[key];
+    
+          myPoints.push(obj);
+          }
+        });
+        callback();  
+      }
 
-	this.initialize = function(){
+
+    }
+    ,
+    error: function(){
+    
+    }
+  });
+
+}
+ 
+function GoogleMap(lat, lng, canvas) {
+ 	var canvas = canvas;
+	var id = "1";
+	var markers = new Array();
+	var baseUrl = 'http://pienvandalen.nl/';
+ 	this.initialize = function(){
 		var map = showMap();
 	}
+ 	var showMap = function(){
+        var myOptions = {
+            center: new google.maps.LatLng(lat,lng),
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-	function loadMarkers(loc_lat, loc_lng){
-		var marker2 = new google.maps.Marker({
-			position: new google.maps.LatLng(loc_lat, loc_lng),
-			map: map,
-			title: "Other",
-			animation: google.maps.Animation.BOUNCE,
-			//icon: 'img/marker3.png',
-		});
-	}
-	
+        var map = new google.maps.Map(canvas, myOptions);
 
-	var showMap = function(){
-		//Create map
-		var myLatLng = new google.maps.LatLng(lat, lng);
+        setMarkers(map, myPoints);
+        
 
-		var mapOptions = {
-			center: myLatLng,
-			zoom: 10,
-			disableDefaultUI: true,
-			scrollwheel: false,
-		    navigationControl: false,
-		    mapTypeControl: false,
-		    scaleControl: false,
-		    draggable: false,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-	 
-		var map = new google.maps.Map(canvas, mapOptions);
 
-		//Create markers
-		//var baseUrl = 'http://localhost/foundation/';
-		var marker = new google.maps.Marker({
-			position: myLatLng,
-			map: map,
-			title: "Me",
-			animation: google.maps.Animation.BOUNCE,
-			//icon: 'img/marker3.png',
-		});
+        
+        
+        
+        function setMarkers(map, markers) {
 
-		$.ajax({
-	    	type: "GET",
-	    	url: $baseUrl+"getchords.php?id="+id+"&lat="+lat+"&lon="+lng,
-		    cache: "false",
-		    dataType: "json",
-		    success: function(data){
-		      if(!(jQuery.isEmptyObject(data))) {
-		        $.each(data, function(index, element) {
-		          // console.log(element[1].date);
-		          for (var key in element) {
-		            var obj = element[key];
-		            for (var prop in obj) {
-		              if((prop == "id") && (obj['id'] == id)) {
-		              }else{
-		              	function loadMarkers(obj.location_lat, obj.location_lon);
-		              }
-		            }
-		          }
-		        });
-		      }else{
-		        $('.page2-list, .page3-list').append('No sent messages yet.');
-		      }
-		    },
-		    error: function(){
-		      $('.page2-list, .page3-list').append('There was an error loading the messages.');
-		    }
-		  });
-		}
+        for (var i = 0; i < markers.length; i++) {
+            var sites = markers[i];
+            console.log(sites);
+            var siteLatLng = new google.maps.LatLng(sites.location_lat,sites.location_lon);
+            var marker = new google.maps.Marker({
+                position: siteLatLng,
+                map: map
+            });
+			var infowindow  = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'mousedown, click, ', function() {
+       		 window.location.href = baseUrl+"messageform.php?id="+sites.userid+"";
+    		});
 
-		return map;
 
-	}
+            return marker;
+        }
+
+        // Set all markers in the myPoints variable
+          
+    }
+}
 }
 
-
-
-	/*function initialize() {
-  var myLatLng = new google.maps.LatLng(53.000980, 6.538572);
-  var centerLatLng = new google.maps.LatLng(53.000980, 6.825604);
-  
-  var mapOptions = {
-	scrollwheel: false,
-    zoom: 10,
-    center: centerLatLng,
-  };
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-
-  var baseUrl = 'http://localhost/foundation/';
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-	animation: google.maps.Animation.BOUNCE,
-	icon: 'img/marker3.png',
-  });  
-  
-  google.maps.event.addDomListener(window, 'resize', function() {
-	if(window.innerWidth < 624){
-  		map.setCenter(myLatLng);
-	}else{
-  		map.setCenter(centerLatLng);
-	}
-    
-  });*/
