@@ -44,7 +44,7 @@
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="js/googlemaps.js"></script>
-        
+
 
         <script type="text/javascript" charset="utf-8">
             // Wait for device API libraries to load
@@ -73,8 +73,10 @@
                 var time = position.timestamp;
                
                                //canvas.innerHTML = '<p style="font-size:50px;">'+lat+'</p><p style="font-size:50px;>'+lng+'</p>';
-                loadMarkers(lat,lng, function() {  
-                var map = new GoogleMap(lat, lng, canvas);
+                loadMarkers(lat,lng, function(myPoints) {  
+                    console.log("callback called! " + myPoints[1]);
+
+                var map = new GoogleMap(lat, lng, canvas, myPoints);
                 map.initialize(); 
                 }); 
 
