@@ -15,8 +15,9 @@
           myPoints.push(obj);
           }
         });
-        callback();  
+       
       }
+       callback();  
 
 
     }
