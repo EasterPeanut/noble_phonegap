@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 function loadMarkers(mylat,mylon,callback){
+=======
+
+ function loadMarkers(mylat,mylon,callback){
+>>>>>>> origin/master
     console.log(mylat);
   $.ajax({
     type: "GET",
