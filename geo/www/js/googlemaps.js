@@ -1,5 +1,6 @@
 
  function loadMarkers(mylat,mylon,callback){
+    console.log(mylat);
   $.ajax({
     type: "GET",
     url: $baseUrl+"getchords.php?id="+id+"&lat="+mylat+"&lon="+mylon+"",
@@ -19,33 +20,11 @@
   });
 
 }
-function loadMap(data) {
-    $(function(){
-    getGeolocation();
-    });
+function loadMap(data, position) {
+    
     var isDeviceReady = false;
     document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() 
-    {
-    isDeviceReady = true;
-    }
-    function getGeolocation()
-    {
-    navigator.geolocation.getCurrentPosition(onGetGeolocationSuccess, onGetGeolocationError);
-    }
-    function onGetGeolocationSuccess(position)
-    {
-    /*html = "Latitude: " + position.coords.latitude + "<br />" +
-    "Longitude: " + position.coords.longitude + "<br />" +
-    "Altitude: " + position.coords.altitude + "<br />" + 
-    "Accuracy: " + position.coords.accuracy + "<br />" + 
-    "Altitude Accuracy: " + position.coords.altitudeAccuracy + "<br />" + 
-    "Heading: " + position.coords.heading + "<br />" + 
-    "Speed: " + position.coords.speed + "<br />" + 
-    "Timestamp: " + new Date(position.timestamp) + "<br />"; 
-    $("#dGeolocation").html(html);
-    */
-
+    
    
     var map = new google.maps.Map(document.getElementById('map_canvas'), {
     zoom: 12,
@@ -69,11 +48,6 @@ function loadMap(data) {
     }
     })(marker, i));
     }
-    }
-    function onGetGeolocationError(error)
-    {
-    html = "Error code: " + error.code + "<br />" + 
-    "Error message: " + error.message + "<br />";
-    $("#dGeolocation").html(html);
-    }
+    
+    
 }

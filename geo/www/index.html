@@ -47,55 +47,37 @@
 
 
         <script type="text/javascript" charset="utf-8">
-            // Wait for device API libraries to load
-            //
-            document.addEventListener("deviceready", onDeviceReady, false);
-            var watchID = null;
-
-            // device APIs are available
-            //
-            function onDeviceReady() {
-                var options = { frequency: 3000 };
-                watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-            }
-
-            // onSuccess Geolocation
-            //
-            function onSuccess(position) {
-                var canvas = document.getElementById('map_canvas');
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
-                var alt = position.coords.altitude;
-                var acc = position.coords.accuracy;
-                var altAcc = position.coords.altitudeAccuracy;
-                var head = position.coords.heading;
-                var spd = position.coords.speed;
-                var time = position.timestamp;
-               
-                               //canvas.innerHTML = '<p style="font-size:50px;">'+lat+'</p><p style="font-size:50px;>'+lng+'</p>';
-                loadMarkers(lat,lng, function(data) {  
+        $(function(){
+        getGeolocation();
+        });
+        function onDeviceReady() {
+            isDeviceReady = true;
+        }
+        function getGeolocation() {
+            navigator.geolocation.getCurrentPosition(onGetGeolocationSuccess, onGetGeolocationError);
+        }
+        function onGetGeolocationSuccess(position){
+            /*html = "Latitude: " + position.coords.latitude + "<br />" +
+            "Longitude: " + position.coords.longitude + "<br />" +
+            "Altitude: " + position.coords.altitude + "<br />" + 
+            "Accuracy: " + position.coords.accuracy + "<br />" + 
+            "Altitude Accuracy: " + position.coords.altitudeAccuracy + "<br />" + 
+            "Heading: " + position.coords.heading + "<br />" + 
+            "Speed: " + position.coords.speed + "<br />" + 
+            "Timestamp: " + new Date(position.timestamp) + "<br />"; 
+            $("#dGeolocation").html(html);
+            */
+             loadMarkers(position.coords.latitude,position.coords.longitude, function(data) {  
                     console.log("callback called! " + data);
-                    loadMap(data);
+                    loadMap(data, position);
                 }); 
-
-                //Hier ook versturen van coordinaten!
-            }
-
-            // clear the watch that was started earlier
-            // 
-            function clearWatch() {
-                if (watchID != null) {
-                    navigator.geolocation.clearWatch(watchID);
-                    watchID = null;
-                }
-            }
-
-            // onError Callback receives a PositionError object
-            //
-            function onError(error) {
-                alert('code: '    + error.code    + '\n' +
-                      'message: ' + error.message + '\n');
-            }
+        }
+        function onGetGeolocationError(error)
+        {
+        html = "Error code: " + error.code + "<br />" + 
+        "Error message: " + error.message + "<br />";
+        $("#dGeolocation").html(html);
+        }
         </script>
 
     </head>
