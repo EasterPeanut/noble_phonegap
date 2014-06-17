@@ -73,11 +73,9 @@
                 var time = position.timestamp;
                
                                //canvas.innerHTML = '<p style="font-size:50px;">'+lat+'</p><p style="font-size:50px;>'+lng+'</p>';
-                loadMarkers(lat,lng, function(myPoints) {  
-                    console.log("callback called! " + myPoints[1]);
-
-                var map = new GoogleMap(lat, lng, canvas, myPoints);
-                map.initialize(); 
+                loadMarkers(lat,lng, function(data) {  
+                    console.log("callback called! " + data);
+                    loadMap(data);
                 }); 
 
                 //Hier ook versturen van coordinaten!
@@ -116,6 +114,7 @@
             <!-- main content -->
             <div data-role="main" class="ui-content" id="map_canvas" style="overflow:hidden;">
                 <p>Finding geolocation...</p>
+                <meta http-equiv="Refresh" content="60">
             </div>
             <!-- end of main content -->
             <!-- footer -->
