@@ -23,6 +23,7 @@ var id = 1;
 
 $baseUrl = "http://pienvandalen.nl/";
 
+
 function loadMessages(){
   $( ".page2-list" ).empty();
   $( ".page3-list" ).empty();

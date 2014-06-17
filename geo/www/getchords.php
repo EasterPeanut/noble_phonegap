@@ -16,7 +16,7 @@ AS distance FROM user HAVING distance < 20 ORDER BY distance LIMIT 100 ;");
 while($obj = mysqli_fetch_object($rs)) {
 $arr[] = $obj;
 }
-echo json_encode(array("location"=>$arr));
+echo $_GET['jsoncallback'].json_encode(array("location"=>$arr));
 /*
 //The json object is :
 {"members":[{"id":"1","title":"Mr","firstname":"Peter","surname":"Ventouris"},{"id":"2","title":"Mr","firstname":"David","surname":"Dabel"},{"id":"3","title":"Mr","firstname":"John","surname":"Merkel"},{"id":"4","title":"Mr","firstname":"James","surname":"Eltons"}]}

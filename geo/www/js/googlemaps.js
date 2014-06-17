@@ -1,5 +1,5 @@
- var myPoints = [];
- function loadMarkers(mylat,mylon,callback){
+function loadMarkers(mylat,mylon,callback){
+    console.log(mylat);
   $.ajax({
     type: "GET",
     url: $baseUrl+"getchords.php?id="+id+"&lat="+mylat+"&lon="+mylon+"",
@@ -7,18 +7,9 @@
     dataType: "json",
     success: function(data){  
       if(!(jQuery.isEmptyObject(data))) {
-        $.each(data, function(index, element) {
-          // console.log(element[1].date);
-          for (var key in element) {
-            var obj = element[key];
-    
-          myPoints.push(obj);
-          }
-        });
-       
+      callback(data);       
+      console.log("data"+data.location[1].location_lat);
       }
-       callback();  
-
 
     }
     ,
@@ -28,53 +19,34 @@
   });
 
 }
- 
-function GoogleMap(lat, lng, canvas) {
- 	var canvas = canvas;
-	var id = "1";
-	var markers = new Array();
-	var baseUrl = 'http://pienvandalen.nl/';
- 	this.initialize = function(){
-		var map = showMap();
-	}
- 	var showMap = function(){
-        var myOptions = {
-            center: new google.maps.LatLng(lat,lng),
-            zoom: 13,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+function loadMap(data, position) {
+    
+    var isDeviceReady = false;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    
+   
+    var map = new google.maps.Map(document.getElementById('map_canvas'), {
+    zoom: 12,
+    center: new google.maps.LatLng(position.coords.latitude , position.coords.longitude),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
 
-        var map = new google.maps.Map(canvas, myOptions);
-
-        setMarkers(map, myPoints);
-        
-
-
-        
-        
-        
-        function setMarkers(map, markers) {
-
-        for (var i = 0; i < markers.length; i++) {
-            var sites = markers[i];
-            console.log(sites);
-            var siteLatLng = new google.maps.LatLng(sites.location_lat,sites.location_lon);
-            var marker = new google.maps.Marker({
-                position: siteLatLng,
-                map: map
-            });
-			var infowindow  = new google.maps.InfoWindow();
-            google.maps.event.addListener(marker, 'mousedown, click, ', function() {
-       		 window.location.href = baseUrl+"messageform.php?id="+sites.userid+"";
-    		});
-
-
-            return marker;
-        }
-
-        // Set all markers in the myPoints variable
-          
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    var image= "asset/img/images.jpg";
+   
+    for (i = 0; i < data.location.length; i++) { 
+    marker = new google.maps.Marker({
+    position: new google.maps.LatLng(data.location[i].location_lat, data.location[i].location_lon),
+    map: map
+    });
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    return function() {
+    infowindow.setContent(data.location[i].date);
+    infowindow.open(map, marker);
     }
+    })(marker, i));
+    }
+    
+    
 }
-}
-
