@@ -22,7 +22,7 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4643 -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.5"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Noble</title>
 
         <link rel="stylesheet" href="css/jquery.mobile.custom.structure.min.css">
@@ -66,7 +66,8 @@
             "Speed: " + position.coords.speed + "<br />" + 
             "Timestamp: " + new Date(position.timestamp) + "<br />"; 
             $("#dGeolocation").html(html);
-            */
+            */myLat = position.coords.latitude;
+            myLng = position.coords.longitude;
              loadMarkers(position.coords.latitude,position.coords.longitude, function(data) {  
                     console.log("callback called! " + data);
                     loadMap(data, position);
@@ -104,24 +105,24 @@
                     <ul>
                         <li>
                             <a href="#page1" class="ui-btn-active ui-state-persist">
-                                <div class="not-map not">
-                                    3
+                                <div class="not-marker not">
+                                    0
                                 </div>
                                 <img src="img/globe.png" alt="globe">
                             </a>
                         </li>
                         <li>
                             <a href="#page2" data-transition="slide">
-                                <div class="not-map not">
-                                    3
+                                <div class="not-received not">
+                                    0
                                 </div>
                                 <img src="img/inbox_in.png" alt="inbox_in">
                             </a>
                         </li>
                         <li>
                             <a href="#page3" data-transition="slide">
-                                <div class="not-map not">
-                                    22
+                                <div class="not-sent not">
+                                    0
                                 </div>
                                 <img src="img/inbox_out.png" alt="inbox_out">
                             </a>
@@ -156,24 +157,24 @@
                     <ul>
                         <li>
                             <a href="#page1" data-transition="slide" data-direction="reverse">
-                                 <div class="not-map not">
-                                    3
+                                 <div class="not-marker not">
+                                    0
                                 </div>
                                 <img src="img/globe.png" alt="globe">
                             </a>
                         </li>
                         <li>
                             <a href="#page2" class="ui-btn-active ui-state-persist">
-                                 <div class="not-map not">
-                                    3
+                                 <div class="not-received not">
+                                    0
                                 </div>
                                 <img src="img/inbox_in.png" alt="inbox_in">
                             </a>
                         </li>
                         <li>
                             <a href="#page3" data-transition="slide">
-                                 <div class="not-map not">
-                                    3
+                                 <div class="not-sent not">
+                                    0
                                 </div>
                                 <img src="img/inbox_out.png" alt="inbox_out">
                             </a>
@@ -208,16 +209,25 @@
                     <ul>
                         <li>
                             <a href="#page1" data-transition="slide" data-direction="reverse">
+                                  <div class="not-marker not">
+                                    0
+                                </div>
                                 <img src="img/globe.png" alt="globe">
                             </a>
                         </li>
                         <li>
                             <a href="#page2" data-transition="slide" data-direction="reverse">
+                                  <div class="not-received not">
+                                    0
+                                </div>
                                 <img src="img/inbox_in.png" alt="inbox_in">
                             </a>
                         </li>
                         <li>
                             <a href="#page3" class="ui-btn-active ui-state-persist" data-transition="slide">
+                                  <div class="not-sent not">
+                                    0
+                                </div>
                                 <img src="img/inbox_out.png" alt="inbox_out">
                             </a>
                         </li>
