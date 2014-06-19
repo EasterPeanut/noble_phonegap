@@ -12,7 +12,26 @@ body {
 .ui-content {
 	background:white;
 }
+.not {
+	color:white;
+	display: inline-block !important;
+	background:red !important;
+	height:auto;
+	width:auto;
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+	border-radius: 100px;
+	position:relative;
+	margin-left:auto;
+	margin-right:auto;
+	padding-left:5px;
+	padding-right:5px;
+	text-shadow:none !important;
+	position:absolute;
+	margin-left:23px;
+	margin-top:0px;
 
+}
 .ui-header {
 	background:url('../img/bg.jpg')  no-repeat center;
 	-webkit-box-shadow: 0px 7px 30px 0px rgba(50, 50, 50, 0.53);
