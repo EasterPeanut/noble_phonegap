@@ -1,10 +1,10 @@
 <?php include 'connection.php';
-$id_from = $_GET["id"];
-$lat = $_GET["lat"];
-$lon = $_GET["lon"];
+$id_from = $_POST["id"];
+$lat = $_POST["lat"];
+$lon = $_POST["lng"];
 $date = date('Y-m-d H:i:s');
-$message = $_GET["message"];
-$id_to = $_GET["id_to"];
+$message = $_POST["message"];
+$id_to = $_POST["id_to"];
 $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$lon.'&sensor=true';
 $json = file_get_contents($url);
 $obj = json_decode($json);

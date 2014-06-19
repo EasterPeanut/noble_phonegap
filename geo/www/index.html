@@ -96,7 +96,6 @@
             <!-- main content -->
             <div data-role="main" class="ui-content" id="map_canvas" style="overflow:hidden;">
                 <p>Finding geolocation...</p>
-                <meta http-equiv="Refresh" content="60">
             </div>
             <!-- end of main content -->
             <!-- footer -->
@@ -225,17 +224,13 @@
             <!-- end of header -->
             <!-- main content -->
             <div data-role="main" class="ui-content">
-                <form action="postmessage.php" method="post">
-                    <textarea name="message" id="message">
-                    Message...
-                    </textarea>
-                    <input type="hidden" id="id" name="id" value="<!-- cookie?sessie? -->">
-                    <input type="hidden" id="lat" name="lat" value="<!-- cookie?sessie? -->">
-                    <input type="hidden" id="lng" name="lng" value="<!-- cookie?sessie? -->">
-                    <input type="hidden" id="lat" name="lat" value="<!-- cookie?sessie? -->">
-                    <input type="hidden" id="lat" name="lat" value="<!-- cookie?sessie? -->">
-                    <input type="hidden" id="id_to" name="id_to" value="<!-- cookie?sessie? -->">
-                    <input type="submit" value="Send">
+                <form action="" id="submitForm" method="post">
+                    <textarea name="message" resize="none" id="message">Message...</textarea>
+                    <input type="hidden" id="id" name="id" value="">
+                    <input type="hidden" id="lat" name="lat" value="">
+                    <input type="hidden" id="lng" name="lng" value="">
+                    <input type="hidden" id="id_to" name="id_to" value="">
+                    <button type="submit" id="sendmessage" value="Send">Send message</button>
                 </form>
             </div>
             <!-- end of main content -->

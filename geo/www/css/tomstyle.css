@@ -96,3 +96,22 @@ margin-bottom:10px;
 	background:url('../img/collapse_arrow_alt_up.png') left center no-repeat !important;
 	background-size:16px 16px !important;
 }
+.sendmessagemarker {
+	color:#af49de !important;
+	font-weight:bolder;
+	text-decoration: none !important;
+	text-shadow:none;
+
+}
+.sendmessagemarker > img{
+	vertical-align:middle;
+	margin-right:10px;
+	text-decoration: none;
+}
+
+#message {
+	color:black !important;
+	text-decoration: none !important;
+	text-shadow:none !important;
+	max-height:500px !important;
+}

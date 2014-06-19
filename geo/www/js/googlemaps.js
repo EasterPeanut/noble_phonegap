@@ -34,19 +34,42 @@ function loadMap(data, position) {
 
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
-    var image= "asset/img/images.jpg";
+     var image = {
+  url: "../img/user_circle.png",
+  size: new google.maps.Size(32, 32),
+  origin: new google.maps.Point(0, 0),
+  scaledSize: new google.maps.Size(32, 32)
+};
    
     for (i = 0; i < data.location.length; i++) { 
+        if(!(data.location[i].userid == id)) {
     marker = new google.maps.Marker({
     position: new google.maps.LatLng(data.location[i].location_lat, data.location[i].location_lon),
-    map: map
+    map: map,
+    icon: image
     });
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
-    return function() {
-    infowindow.setContent(data.location[i].date);
+    return function() {lat, lng, id_to
+    infowindow.setContent("<a href='#page4' class='sendmessagemarker' onclick='setMessageToUser("+position.coords.latitude+","+ position.coords.longitude+","+ data.location[i].userid+");'><img src='../img/speech_bubbles.png' alt='send message' height='32' width='32'/>Send message</a>");
     infowindow.open(map, marker);
     }
     })(marker, i));
+    } else {
+        var image = {
+  url: "../img/you-icon.png",
+  size: new google.maps.Size(57, 73),
+  origin: new google.maps.Point(0, 0),
+  scaledSize: new google.maps.Size(57, 73)
+};
+        marker = new google.maps.Marker({
+    position: new google.maps.LatLng(data.location[i].location_lat, data.location[i].location_lon),
+    map: map,
+    icon: image,
+    });
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    
+    })(marker, i));
+    }
     }
     
     
