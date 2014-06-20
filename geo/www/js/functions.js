@@ -34,7 +34,7 @@ window.setInterval(function(){
   makeCookie();
   hideNot();
   updateUserInfo();
-}, 5000);
+}, 20000);
 
 function updateUserInfo() {
   console.log("MYLNG" + myLng);
