@@ -57,6 +57,7 @@
 
             id = device.uuid;
             isDeviceReady = true;
+            alert(id);
         }
         function getGeolocation() {
             navigator.geolocation.getCurrentPosition(onGetGeolocationSuccess, onGetGeolocationError);
