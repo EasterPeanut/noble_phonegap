@@ -8,25 +8,31 @@ $('p').on('taphold',function(){
 $(this).hide();
 });
 $('.a').on('swipe',function(){
-	alert("You swiped!");
+  alert("You swiped!");
 });
 $('p').on('swipeleft',function(){
-	alert("You swiped left!");
+  alert("You swiped left!");
 });
 $('p').on('swiperight',function(){
-	alert("You swiped right!");
+  alert("You swiped right!");
 });
 */ 
-
+$(document).ready(function(){
 //APPARAAT ID
+
+
 $baseUrl = "http://pixes.nl/";
-var id = 1;
+var id;
 var myLat;
 var myLng;
 var sentmessages = new Array();
 var receivedmessages = new Array();
 var markers = new Array();
 getCookie();
+  loadMessages();
+  hideNot();
+  updateUserInfo();
+
 
 window.setInterval(function(){
   notCheck();
@@ -321,8 +327,5 @@ $(document).on('click','.ui-navbar', function () {
 });
 
 
-$(document).ready(function(){
-  loadMessages();
-  hideNot();
-  updateUserInfo();
+
 });

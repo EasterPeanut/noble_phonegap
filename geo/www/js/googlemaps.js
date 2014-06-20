@@ -1,4 +1,11 @@
-
+var map;
+ var markersArray = [];
+ function clearOverlays() {
+  for (var i = 0; i < markersArray.length; i++ ) {
+    markersArray[i].setMap(null);
+  }
+  markersArray.length = 0;
+}
  function loadMarkers(mylat,mylon,callback){
     console.log(mylat);
   $.ajax({
@@ -19,23 +26,25 @@
     }
   });
 
-}
-function loadMap(data, position) {
-    
-    var isDeviceReady = false;
+}function initialize(position) {
+     var isDeviceReady = false;
     document.addEventListener("deviceready", onDeviceReady, false);
     
    
-    var map = new google.maps.Map(document.getElementById('map_canvas'), {
+    map = new google.maps.Map(document.getElementById('map_canvas'), {
     zoom: 12,
     center: new google.maps.LatLng(position.coords.latitude , position.coords.longitude),
     mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+}
+function loadMap(data,position) {
+    
+   
 
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
      var image = {
-  url: "../img/user_circle.png",
+  url: "img/user_circle.png",
   size: new google.maps.Size(32, 32),
   origin: new google.maps.Point(0, 0),
   scaledSize: new google.maps.Size(32, 32)
@@ -48,15 +57,16 @@ function loadMap(data, position) {
     map: map,
     icon: image
     });
+    markersArray.push(marker);
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
-    return function() {lat, lng, id_to
+    return function() {
     infowindow.setContent("<a href='#page4' class='sendmessagemarker' onclick='setMessageToUser("+position.coords.latitude+","+ position.coords.longitude+","+ data.location[i].userid+");'><img src='../img/speech_bubbles.png' alt='send message' height='32' width='32'/>Send message</a>");
     infowindow.open(map, marker);
     }
     })(marker, i));
     } else {
         var image2 = {
-  url: "../img/you-icon.png",
+  url: "img/you-icon.png",
   size: new google.maps.Size(57, 73),
   origin: new google.maps.Point(0, 0),
   scaledSize: new google.maps.Size(57, 73)
@@ -66,6 +76,7 @@ function loadMap(data, position) {
     map: map,
     icon: image2,
     });
+        markersArray.push(marker);
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
     
     })(marker, i));

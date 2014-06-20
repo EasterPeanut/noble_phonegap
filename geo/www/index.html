@@ -47,9 +47,11 @@
 
 
         <script type="text/javascript" charset="utf-8">
+        var positionn;
         $(function(){
         getGeolocation();
         });
+
         function onDeviceReady() {
             isDeviceReady = true;
         }
@@ -66,13 +68,24 @@
             "Speed: " + position.coords.speed + "<br />" + 
             "Timestamp: " + new Date(position.timestamp) + "<br />"; 
             $("#dGeolocation").html(html);
-            */myLat = position.coords.latitude;
+            */
+            positionn = position;
+            myLat = position.coords.latitude;
             myLng = position.coords.longitude;
              loadMarkers(position.coords.latitude,position.coords.longitude, function(data) {  
                     console.log("callback called! " + data);
+                    initialize(position);
                     loadMap(data, position);
                 }); 
         }
+        var myVar=setInterval(function(){updateMarkers()},5000);
+        function updateMarkers() {
+     loadMarkers(myLat,myLng, function(data) {  
+                    console.log("tesstx " + data);
+                clearOverlays();
+                    loadMap(data, positionn);
+                     });
+}
         function onGetGeolocationError(error)
         {
         html = "Error code: " + error.code + "<br />" + 
@@ -254,10 +267,10 @@
             <div data-role="main" class="ui-content">
                 <form action="" id="submitForm" method="post">
                     <textarea name="message" resize="none" id="message">Message...</textarea>
-                    <input type="hidden" id="id" name="id" value="">
-                    <input type="hidden" id="lat" name="lat" value="">
-                    <input type="hidden" id="lng" name="lng" value="">
-                    <input type="hidden" id="id_to" name="id_to" value="">
+                    <input type="text" id="id" name="id" value="">
+                    <input type="text" id="lat" name="lat" value="">
+                    <input type="text" id="lng" name="lng" value="">
+                    <input type="text" id="id_to" name="id_to" value="">
                     <button type="submit" id="sendmessage" value="Send">Send message</button>
                 </form>
             </div>
