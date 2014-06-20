@@ -22,7 +22,7 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4643 -->
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Noble</title>
 
         <link rel="stylesheet" href="css/jquery.mobile.custom.structure.min.css">
@@ -47,21 +47,15 @@
 
 
         <script type="text/javascript" charset="utf-8">
-        var positionn;
         $(function(){
         getGeolocation();
         });
-        document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            var element = document.getElementById('deviceProperties');
-
-            
             isDeviceReady = true;
         }
         function getGeolocation() {
             navigator.geolocation.getCurrentPosition(onGetGeolocationSuccess, onGetGeolocationError);
         }
-        getGeolocation();
         function onGetGeolocationSuccess(position){
             /*html = "Latitude: " + position.coords.latitude + "<br />" +
             "Longitude: " + position.coords.longitude + "<br />" +
@@ -74,22 +68,11 @@
             $("#dGeolocation").html(html);
             */myLat = position.coords.latitude;
             myLng = position.coords.longitude;
-            positionn = position;
              loadMarkers(position.coords.latitude,position.coords.longitude, function(data) {  
                     console.log("callback called! " + data);
-                    initialize(position);
                     loadMap(data, position);
                 }); 
         }
-        var myVar=setInterval(function(){updateMarkers()},5000);
-       
-function updateMarkers() {
-     loadMarkers(myLat,myLng, function(data) {  
-                    console.log("tesstx " + data);
-                clearOverlays();
-                    loadMap(data, positionn);
-                     });
-}
         function onGetGeolocationError(error)
         {
         html = "Error code: " + error.code + "<br />" + 
