@@ -47,6 +47,7 @@
 
 
         <script type="text/javascript" charset="utf-8">
+        var positionn;
         $(function(){
         getGeolocation();
         });
@@ -56,6 +57,7 @@
         function getGeolocation() {
             navigator.geolocation.getCurrentPosition(onGetGeolocationSuccess, onGetGeolocationError);
         }
+        getGeolocation();
         function onGetGeolocationSuccess(position){
             /*html = "Latitude: " + position.coords.latitude + "<br />" +
             "Longitude: " + position.coords.longitude + "<br />" +
@@ -68,11 +70,22 @@
             $("#dGeolocation").html(html);
             */myLat = position.coords.latitude;
             myLng = position.coords.longitude;
+            positionn = position;
              loadMarkers(position.coords.latitude,position.coords.longitude, function(data) {  
                     console.log("callback called! " + data);
+                    initialize(position);
                     loadMap(data, position);
                 }); 
         }
+        var myVar=setInterval(function(){updateMarkers()},5000);
+       
+function updateMarkers() {
+     loadMarkers(myLat,myLng, function(data) {  
+                    console.log("tesstx " + data);
+                clearOverlays();
+                    loadMap(data, positionn);
+                     });
+}
         function onGetGeolocationError(error)
         {
         html = "Error code: " + error.code + "<br />" + 
