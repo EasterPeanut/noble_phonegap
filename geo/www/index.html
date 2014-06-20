@@ -51,11 +51,7 @@
         $(function(){
         getGeolocation();
         });
-        document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            var element = document.getElementById('deviceProperties');
-
-            id = device.uuid;
             isDeviceReady = true;
         }
         function getGeolocation() {
