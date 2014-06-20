@@ -17,28 +17,40 @@ $('p').on('swiperight',function(){
 	alert("You swiped right!");
 });
 */ 
-
+$(document).ready(function(){
 //APPARAAT ID
+
+
 $baseUrl = "http://pixes.nl/";
-var id = 1;
+var id;
 var myLat;
 var myLng;
-var oldmyLat;
-var oldmyLng;
 var sentmessages = new Array();
 var receivedmessages = new Array();
 var markers = new Array();
+getCookie();
+  loadMessages();
+  hideNot();
+  updateUserInfo();
 
+document.addEventListener("deviceready", onDeviceReady, false);
+
+    // PhoneGap is ready
+    //
+    function onDeviceReady() {
+        var element = document.getElementById('deviceProperties');
+
+        id = device.uuid;
+    }
 window.setInterval(function(){
   notCheck();
   showNot();
   makeCookie();
   hideNot();
-
-}, 20000);
+  updateUserInfo();
+}, 5000);
 
 function updateUserInfo() {
-  console.log("MYLNG" + myLng);
   $.ajax({
     type: "GET",
     url: $baseUrl+"updateuser.php?id="+id+"&lat="+myLat+"&lon="+myLng+"",
@@ -53,10 +65,9 @@ function updateUserInfo() {
   });
 }
 function makeCookie() {
-  console.log("makeCookie" + markers.length);
    $.ajax({
     type: "GET",
-    url: $baseUrl+"updatecookie.php?id="+id+"&sent="+sentmessages.length+"&received="+receivedmessages.length+"&marker="+markers.length+"&lat="+myLat+"&lng="+myLng+"",
+    url: $baseUrl+"updatecookie.php?id="+id+"&sent="+sentmessages.length+"&received="+receivedmessages.length+"&marker="+markers.length+"",
     cache: "false",
     dataType: "json",
     success: function(data){  
@@ -74,13 +85,9 @@ function getCookie() {
     cache: "false",
     dataType: "json",
     success: function(data){  
-      oldmyLat = data.cookie[0].location_lat;
-      oldmyLng = data.cookie[0].location_lon;
-
       if(!(jQuery.isEmptyObject(data))) {
         for (i= 0; i < data.cookie[0].sent; i++) {
           sentmessages.push("bogus");
-
         }
         for (a= 0; a < data.cookie[0].received; a++) {
           receivedmessages.push("bogus");
@@ -202,17 +209,17 @@ function showNot() {
             
              
                tempmarkers.push([obj]);
-            //console.log("123fhsifdsjfsdf"+obj.location[0]);
+            
             
           }
-          //console.log(tempmarkers.length);
+          console.log(tempmarkers.length);
         });
       }else{
        
       }
 
         if((markers[0] != null)) {
-         // console.log("temp"+tempmarkers.length+"markers"+ markers.length);
+          console.log("temp"+tempmarkers.length+"markers"+ markers.length);
           if(tempmarkers.length > markers.length) {
             
            var verschil = tempmarkers.length - markers.length;
@@ -222,7 +229,6 @@ function showNot() {
             
           }
         } else {
-
           markers = tempmarkers;
         }
         
@@ -329,9 +335,5 @@ $(document).on('click','.ui-navbar', function () {
 });
 
 
-$(document).ready(function(){
-  loadMessages();
-  hideNot();
-  updateUserInfo();
-  getCookie();
+
 });

@@ -5,7 +5,7 @@ $id = $_GET["id"];
 
 $arr = array();
  //echo "SELECT * FROM message WHERE id_to = $id OR id_from = $id";
-$rs = mysqli_query($con,"SELECT * FROM message WHERE id_to = '$id' OR id_from = '$id'  ORDER BY date DESC");
+$rs = mysqli_query($con,"SELECT * FROM message WHERE id_to = $id OR id_from = $id ORDER BY date DESC");
  
 while($obj = mysqli_fetch_object($rs)) {
 $arr[] = $obj;

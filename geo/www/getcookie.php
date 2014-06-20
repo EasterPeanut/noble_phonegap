@@ -7,7 +7,7 @@ $id = $_GET["id"];
 //getchords.php?id=1&lat=51.451988&lon=5.480222 //
 
  //echo "SELECT * FROM message WHERE id_to = $id OR id_from = $id";
-$rs = mysqli_query($con,"SELECT * FROM cookie WHERE id = '$id'");
+$rs = mysqli_query($con,"SELECT * FROM cookie WHERE id = $id");
  
 while($obj = mysqli_fetch_object($rs)) {
 $arr[] = $obj;
