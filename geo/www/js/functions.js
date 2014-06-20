@@ -33,15 +33,7 @@ getCookie();
   hideNot();
   updateUserInfo();
 
-document.addEventListener("deviceready", onDeviceReady, false);
 
-    // PhoneGap is ready
-    //
-    function onDeviceReady() {
-        var element = document.getElementById('deviceProperties');
-
-        id = device.uuid;
-    }
 window.setInterval(function(){
   notCheck();
   showNot();
