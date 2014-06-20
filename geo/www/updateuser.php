@@ -4,7 +4,8 @@ $lat = $_GET["lat"];
 $lon = $_GET["lon"];
 
 $date = date('Y-m-d H:i:s');
-$url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$lat.','.$lon.'&sensor=true';
+
+$url = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAEYgSXI4I0Z3qQKJyL6OHIgHe1I3A3j04&latlng='.$lat.','.$lon.'&sensor=true';
 /*http://localhost/save/noble/updateuser.php?id=1&lat=51.451990&lon=5.480222*/
 $json = file_get_contents($url);
 $obj = json_decode($json);

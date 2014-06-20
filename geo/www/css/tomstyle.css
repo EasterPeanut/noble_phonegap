@@ -14,7 +14,7 @@ body {
 }
 .not {
 	color:white;
-	display: inline-block;
+	display: none;
 	background:red !important;
 	height:auto;
 	width:auto;
