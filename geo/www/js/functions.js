@@ -17,17 +17,31 @@ $('p').on('swiperight',function(){
 	alert("You swiped right!");
 });
 */ 
-
+$(document).ready(function(){
 //APPARAAT ID
+
+
 $baseUrl = "http://pixes.nl/";
-var id = 1;
+var id;
 var myLat;
 var myLng;
 var sentmessages = new Array();
 var receivedmessages = new Array();
 var markers = new Array();
 getCookie();
+  loadMessages();
+  hideNot();
+  updateUserInfo();
 
+document.addEventListener("deviceready", onDeviceReady, false);
+
+    // PhoneGap is ready
+    //
+    function onDeviceReady() {
+        var element = document.getElementById('deviceProperties');
+
+        id = device.uuid;
+    }
 window.setInterval(function(){
   notCheck();
   showNot();
@@ -321,8 +335,5 @@ $(document).on('click','.ui-navbar', function () {
 });
 
 
-$(document).ready(function(){
-  loadMessages();
-  hideNot();
-  updateUserInfo();
+
 });
