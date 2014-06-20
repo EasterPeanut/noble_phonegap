@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 
 $baseUrl = "http://pixes.nl/";
-var id = 1;
+var id;
 var myLat;
 var myLng;
 var sentmessages = new Array();

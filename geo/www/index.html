@@ -53,8 +53,10 @@
         });
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-          
-            getGeolocation();
+            var element = document.getElementById('deviceProperties');
+
+            id = device.uuid;
+            isDeviceReady = true;
         }
         function getGeolocation() {
             navigator.geolocation.getCurrentPosition(onGetGeolocationSuccess, onGetGeolocationError);
