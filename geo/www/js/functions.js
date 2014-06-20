@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 
 $baseUrl = "http://pixes.nl/";
-var id;
+var id = device.uuid;
 var myLat;
 var myLng;
 var sentmessages = new Array();
