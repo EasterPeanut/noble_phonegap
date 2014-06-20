@@ -44,7 +44,7 @@ function loadMap(data,position) {
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
      var image = {
-  url: "../img/user_circle.png",
+  url: "img/user_circle.png",
   size: new google.maps.Size(32, 32),
   origin: new google.maps.Point(0, 0),
   scaledSize: new google.maps.Size(32, 32)
@@ -66,7 +66,7 @@ function loadMap(data,position) {
     })(marker, i));
     } else {
         var image2 = {
-  url: "../img/you-icon.png",
+  url: "img/you-icon.png",
   size: new google.maps.Size(57, 73),
   origin: new google.maps.Point(0, 0),
   scaledSize: new google.maps.Size(57, 73)
