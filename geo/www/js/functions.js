@@ -17,10 +17,8 @@ $('p').on('swiperight',function(){
 	alert("You swiped right!");
 });
 */ 
-$(document).ready(function(){
+
 //APPARAAT ID
-
-
 $baseUrl = "http://pixes.nl/";
 var id = 1;
 var myLat;
@@ -29,10 +27,6 @@ var sentmessages = new Array();
 var receivedmessages = new Array();
 var markers = new Array();
 getCookie();
-  loadMessages();
-  hideNot();
-  updateUserInfo();
-
 
 window.setInterval(function(){
   notCheck();
@@ -327,5 +321,8 @@ $(document).on('click','.ui-navbar', function () {
 });
 
 
-
+$(document).ready(function(){
+  loadMessages();
+  hideNot();
+  updateUserInfo();
 });
