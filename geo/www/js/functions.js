@@ -26,7 +26,7 @@ var myLng;
 var sentmessages = new Array();
 var receivedmessages = new Array();
 var markers = new Array();
-getCookie();
+
 
 window.setInterval(function(){
   notCheck();
@@ -325,4 +325,5 @@ $(document).ready(function(){
   loadMessages();
   hideNot();
   updateUserInfo();
+  getCookie();
 });
