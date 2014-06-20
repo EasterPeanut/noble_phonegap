@@ -20,7 +20,7 @@ $('p').on('swiperight',function(){
 
 //APPARAAT ID
 $baseUrl = "http://pixes.nl/";
-var id = 1;
+var id = device.uuid;
 var myLat;
 var myLng;
 var sentmessages = new Array();
@@ -37,6 +37,7 @@ window.setInterval(function(){
 }, 5000);
 
 function updateUserInfo() {
+  console.log("MYLNG" + myLng);
   $.ajax({
     type: "GET",
     url: $baseUrl+"updateuser.php?id="+id+"&lat="+myLat+"&lon="+myLng+"",
