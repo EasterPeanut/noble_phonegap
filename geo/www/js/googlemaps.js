@@ -59,8 +59,9 @@ function loadMap(data,position) {
     });
     markersArray.push(marker);
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
-    return function() {lat, lng, id_to
-    infowindow.setContent("<a href='#page4' class='sendmessagemarker' onclick='setMessageToUser("+position.coords.latitude+","+ position.coords.longitude+","+ data.location[i].userid+");'><img src='../img/speech_bubbles.png' alt='send message' height='32' width='32'/>Send message</a>");
+     return function() {
+ 
+    infowindow.setContent("<a href='#page4' class='sendmessagemarker' onclick='setMessageToUser("+position.coords.latitude+","+position.coords.longitude+",\""+data.location[i].userid+"\")'><img src='../img/speech_bubbles.png' alt='send message' height='32' width='32'/>Send message</a>");
     infowindow.open(map, marker);
     }
     })(marker, i));

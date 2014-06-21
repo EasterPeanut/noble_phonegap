@@ -12,6 +12,11 @@ body {
 .ui-content {
 	background:white;
 }
+.newitems {
+	color:#af49de !important;
+	font-weight:bolder !important;
+	font-family:'aileronheavy' !important /*{global-font-family}*/;
+}
 .not {
 	color:white;
 	display: inline-block;

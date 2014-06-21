@@ -17,14 +17,18 @@ $('p').on('swiperight',function(){
 	alert("You swiped right!");
 });
 */ 
-$(document).ready(function(){
+
 //APPARAAT ID
 
 
 $baseUrl = "http://pixes.nl/";
-var id;
+var id = "DC46B660-EF6F-46D4-AC24-85CFAB0C7694";
+var mycookieLat;
+var mycookieLng;
 var myLat;
 var myLng;
+var newreceivedmessages;
+var newsentmessages;
 var sentmessages = new Array();
 var receivedmessages = new Array();
 var markers = new Array();
@@ -33,22 +37,17 @@ getCookie();
   hideNot();
   updateUserInfo();
 
-document.addEventListener("deviceready", onDeviceReady, false);
 
-    // PhoneGap is ready
-    //
-    function onDeviceReady() {
-        var element = document.getElementById('deviceProperties');
-
-        id = device.uuid;
-    }
 window.setInterval(function(){
   notCheck();
-  showNot();
-  makeCookie();
   hideNot();
-  updateUserInfo();
-}, 5000);
+  makeCookie();
+}, 10000);
+window.setInterval(function(){
+    showNot();
+    checkNewMessages();
+}, 2000);
+
 
 function updateUserInfo() {
   $.ajax({
@@ -67,7 +66,7 @@ function updateUserInfo() {
 function makeCookie() {
    $.ajax({
     type: "GET",
-    url: $baseUrl+"updatecookie.php?id="+id+"&sent="+sentmessages.length+"&received="+receivedmessages.length+"&marker="+markers.length+"",
+    url: $baseUrl+"updatecookie.php?id="+id+"&sent="+sentmessages.length+"&received="+receivedmessages.length+"&marker="+markers.length+"&lat="+myLat+"&lng="+myLng,
     cache: "false",
     dataType: "json",
     success: function(data){  
@@ -95,7 +94,12 @@ function getCookie() {
         for (b= 0; b < data.cookie[0].marker; b++) {
           markers.push("bogus");
         }
-
+         for (c= 0; c < data.cookie[0].location_lon; c++) {
+          mycookieLng = data.cookie[0].location_lon;
+        }
+         for (d= 0; d < data.cookie[0].location_lat; d++) {
+          mycookieLat = data.cookie[0].location_lat;
+        }
      
       }
 
@@ -107,18 +111,26 @@ function getCookie() {
   });
 }
 function hideNot() {
-  if($('.not-marker:contains("0")')) {
+  var notmarker = $('.not-marker:first').text();
+   notmarker = parseInt(notmarker.replace(/\s+/g, ''));
+  if(notmarker == 0) {
     $('.not-marker').hide();
   } else {
     $('.not-marker').show();
   }
-   if($('.not-received:contains("0")')) {
+   var notreceived = $('.not-received:first').text();
+   notreceived = parseInt(notreceived.replace(/\s+/g, ''));
+   if(notreceived ==  0) {
   $('.not-received').hide();
 
   } else {
     $('.not-received').show();
   }
-  if($('.not-sent:contains("0")')) {
+ 
+  var notsent = $('.not-sent:first').text();
+  notsent = parseInt(notsent.replace(/\s+/g, ''));
+  console.log(notsent);
+  if(notsent ==  0) {
   $('.not-sent').hide();
 
   } else {
@@ -135,6 +147,15 @@ function notCheck() {
   if($.mobile.activePage[0].id == "page3") {
      $('.not-sent').html("0");
   }
+}
+function checkNewMessages() {
+  console.log("newreceivedmessage" +newreceivedmessages);
+  if(newreceivedmessages > 0) {
+  $('.page2-list > li:nth-child(-n+'+parseInt(newreceivedmessages)+') > a > ul > li.message_list').addClass("newitems");
+}
+if(newsentmessages > 0) {
+  $('.page3-list > li:nth-child(-n+'+parseInt(newsentmessages)+') > a > ul > li.message_list').addClass("newitems");
+}
 }
 function showNot() {
   $.ajax({
@@ -167,8 +188,18 @@ function showNot() {
         if((receivedmessages[0] != null)) {
           if(tempreceivedmessages.length > receivedmessages.length) {
            var verschil = tempreceivedmessages.length - receivedmessages.length;
-            $('.not-received').html(verschil);
+           var notreceived = $('.not-received:first').text();
+            notreceived = parseInt(notreceived.replace(/\s+/g, ''));
+         
+          var uiteindelijkverschil = parseInt(notreceived + parseInt(verschil));
+          if(uiteindelijkverschil > 0) {
+          newreceivedmessages = uiteindelijkverschil;
+          }
+          console.log("uiteindelijkverschil"+uiteindelijkverschil);
+            $('.not-received').html(uiteindelijkverschil);
             $('.not-received').css("display", "inline-block" );
+            $('.page2-list > li:nth-child(-n+'+parseInt(uiteindelijkverschil)+') > a > ul > li.message_list').addClass("newitems");
+
             receivedmessages = tempreceivedmessages;
           }
         } else {
@@ -176,8 +207,14 @@ function showNot() {
         }
         if((sentmessages[0] != null)) {
           if(tempsentmessages.length > sentmessages.length) {
-           var verschil = tempsentmessages.length - sentmessages.length;
-            $('.not-sent').html(verschil);
+          var verschil = tempsentmessages.length - sentmessages.length;
+          var notsent = $('.not-sent:first').text();
+          notsent = parseInt(notsent.replace(/\s+/g, ''));
+          var uiteindelijkverschil = parseInt(notsent + parseInt(verschil));
+          if(uiteindelijkverschil > 0) {
+          newsentmessages = uiteindelijkverschil;
+          }
+            $('.not-sent').html(uiteindelijkverschil);
             $('.not-sent').css("display", "inline-block" );
             sentmessages = tempsentmessages;
           }
@@ -223,7 +260,10 @@ function showNot() {
           if(tempmarkers.length > markers.length) {
             
            var verschil = tempmarkers.length - markers.length;
-            $('.not-marker').html(verschil);
+          var notmarker = $('.not-marker:first').text();
+          notmarker = parseInt(notmarker.replace(/\s+/g, ''));
+          var uiteindelijkverschil =  parseInt(notmarker + parseInt(verschil));
+            $('.not-marker').html(uiteindelijkverschil);
             $('.not-marker').css("display", "inline-block" );
             markers = tempmarkers;
             
@@ -237,8 +277,11 @@ function showNot() {
       
     }
   });
+    checkNewMessages();
+
 }
-function setMessageToUser(lat, lng, id_to) {
+function setMessageToUser(lat, lng, idto) {
+  console.log("setmessage");
   var elem = document.getElementById("id");
   elem.value = id;
   var elem = document.getElementById("lat");
@@ -246,7 +289,7 @@ function setMessageToUser(lat, lng, id_to) {
   var elem = document.getElementById("lng");
   elem.value = lng;
   var elem = document.getElementById("id_to");
-  elem.value = id_to;
+  elem.value = idto;
 }
 $(document).on('submit','#submitForm', function(e) { 
     e.preventDefault(); //
@@ -263,6 +306,7 @@ $(document).on('submit','#submitForm', function(e) {
      $('#sendmessage').html("Message sent");
      $('#sendmessage').css("color", "green" );
      alert("Message sent");
+     loadMessages();
       window.location.replace("/#page3");
           // change submit button text
       },
@@ -308,11 +352,26 @@ function loadMessages(){
       $('.page2-list, .page3-list').append('There was an error loading the messages.');
     }
   });
+checkNewMessages();
 }
 
 
-$(document).on('click','.page2-list ul, .page3-list ul', function () {
 
+
+$(document).on('click','.page2-list ul, .page3-list ul', function () {
+ 
+  if($.mobile.activePage[0].id == "page2") {
+    console.log("nutest");
+     $(this).children('li:first-child').removeClass("newitems");
+     newreceivedmessages = newreceivedmessages - 1;
+
+  }
+   if($.mobile.activePage[0].id == "page3") {
+     $(this).children('li:first-child').removeClass("newitems");
+     newsentmessages = newsentmessages - 1;
+     console.log(newsentmessages);
+
+  }
   if($(this).children('.date_list').hasClass("collapse_display" )) {
 
     $(this).children('.date_list').removeClass("collapse_display" );
@@ -327,13 +386,17 @@ $(document).on('click','.page2-list ul, .page3-list ul', function () {
     $(this).children('.message_list').addClass("collapse" );
     $(this).addClass("collapse_background" );
   }
+  checkNewMessages();
 });
 
 $(document).on('click','.ui-navbar', function () {
-  notCheck();
+
+  
   loadMessages();
+  notCheck();
+
 });
 
-
+$(document).ready(function(){
 
 });
