@@ -22,7 +22,7 @@ $('p').on('swiperight',function(){
 
 
 $baseUrl = "http://pixes.nl/";
-var id = "DC46B660-EF6F-46D4-AC24-85CFAB0C7694";
+var id = 2;
 var mycookieLat;
 var mycookieLng;
 var myLat;
@@ -148,6 +148,16 @@ function notCheck() {
      $('.not-sent').html("0");
   }
 }
+$( window ).on( "navigate", function( event, data ) {
+  console.log( data.state.info );
+  console.log( data.state.direction )
+  console.log( data.state.url )
+  console.log( data.state.hash )
+});
+$(document).on('click','.back', function (event,data) {
+   event.preventDefault(); //
+  window.history.back();
+});
 function checkNewMessages() {
   console.log("newreceivedmessage" +newreceivedmessages);
   if(newreceivedmessages > 0) {
@@ -303,7 +313,7 @@ $(document).on('submit','#submitForm', function(e) {
       },
       success: function(data) {
         
-     $('#sendmessage').html("Message sent");
+     
      $('#sendmessage').css("color", "green" );
      alert("Message sent");
      loadMessages();
@@ -312,12 +322,26 @@ $(document).on('submit','#submitForm', function(e) {
       },
       error: function(e) {
  $('#sendmessage').css("color", "red" );
-        $('#sendmessage').html("Something went terribly wrong");    
+       
         alert("Something went terribly wrong");  }
     });
   });
 
+function connectToFB(fbid) {
+   $.ajax({
+    type: "GET",
+    url: $baseUrl+"connecttofb.php?id="+id+"&fbid="+fbid+"&lon="+myLng+"&lat="+myLat,
+    cache: "false",
+    dataType: "json",
+    success: function(data){  
+    
+    },
+    error: function(){
+      
+    }
+  });
 
+}
 
 function loadMessages(){
   $( ".page2-list" ).empty();

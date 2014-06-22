@@ -57,11 +57,16 @@ function loadMap(data,position) {
     map: map,
     icon: image
     });
+   
     markersArray.push(marker);
+
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
      return function() {
- 
+  if(data.location[i].fbid) {
+     infowindow.setContent("<a href='#page4' class='sendmessagemarker' onclick='setMessageToUser("+position.coords.latitude+","+position.coords.longitude+",\""+data.location[i].userid+"\")'><img class='markerimage' src='https://graph.facebook.com/"+data.location[i].fbid+"/picture?width=200&height=200'><br><img src='../img/speech_bubbles.png' alt='send message' height='32' width='32'/>Send message</a>");
+   } else {
     infowindow.setContent("<a href='#page4' class='sendmessagemarker' onclick='setMessageToUser("+position.coords.latitude+","+position.coords.longitude+",\""+data.location[i].userid+"\")'><img src='../img/speech_bubbles.png' alt='send message' height='32' width='32'/>Send message</a>");
+    }
     infowindow.open(map, marker);
     }
     })(marker, i));

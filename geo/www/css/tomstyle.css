@@ -1,5 +1,5 @@
 body {
-	background:url('../img/bg.jpg')  center;
+	background:white;
 }
 
 .ui-btn-left {
@@ -8,14 +8,36 @@ body {
 	margin-top:6px !important;
 	margin-left:4px !important;
 }
-
+.markerimage {
+	-webkit-border-radius: 200px;
+-moz-border-radius: 200px;
+border-radius: 200px;
+width:100px;
+height:100px;
+}
 .ui-content {
 	background:white;
+	color:black !important;
+	text-align:center;
+	text-shadow:none !important;
 }
 .newitems {
 	color:#af49de !important;
 	font-weight:bolder !important;
 	font-family:'aileronheavy' !important /*{global-font-family}*/;
+}
+.facebookbutton {
+	background:#3B5998 !important;
+	color:white !important;
+}
+.facebookbutton > img {
+	height:15px;
+	width:15px;
+	vertical-align:middle;
+	margin-right:10px;
+}
+.ui-btn {
+	text-shadow:none !important;
 }
 .not {
 	color:white;
@@ -110,7 +132,10 @@ text-overflow: clip !important;
 white-space: normal !important;
 margin-bottom:10px;
 }
-
+#sendmessage {
+	background:#af49de !important;
+	color:white !important;
+}
 .collapse_background {
 	background:url('../img/collapse_arrow_alt_up.png') left center no-repeat !important;
 	background-size:16px 16px !important;
@@ -125,6 +150,7 @@ margin-bottom:10px;
 	font-weight:bolder;
 	text-decoration: none !important;
 	text-shadow:none;
+	text-align:center;
 
 }
 .sendmessagemarker > img{

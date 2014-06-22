@@ -48,6 +48,7 @@
 
         <script type="text/javascript" charset="utf-8">
         var positionn;
+
         $(function(){
         getGeolocation();
         });
@@ -132,14 +133,64 @@ function updateMarkers() {
 
     <body>
         
-        <!-- PAGE 1 -->
-        <div data-role="page" id="page1" data-url="page1">
+         <!-- PAGE 0 -->
+        <div data-role="page" id="page0" data-url="page0">
             <!-- header -->
             <div data-role="header" data-position="fixed">
                 <div class="logo">
                     <img src="img/logo.png" class="ui-btn-left" />
                 </div>
+
+                <h1>Welcome to Noble</h1>
+            </div>
+            <!-- end of header -->
+            <!-- main content -->
+            <div data-role="main" class="ui-content"  style="overflow:hidden;">
+                <h2>Login to start complimenting</h2>
+                <button class="facebookbutton" onclick="login()"><img src="img/facebook_1.png" />Login with Facebook</button>
+                <a href="#page1">Or skip this step to be anonymous</a>
+                
+
+            </div>
+            <!-- end of main content -->
+        </div>
+        <!-- END OF PAGE 0 -->
+        <!-- PAGE 5 -->
+        <div data-role="page" id="page5">
+            <!-- header -->
+            <div data-role="header" data-position="fixed">
+                <div class="logo">
+                      <a href="#page1"><img src="img/logo.png" class="ui-btn-left" /></a>
+                </div>
+                <h1>Your settings</h1>
+                 <div class="settings">
+                    <a class="back" href=""><img  src="img/circle_left.png"  /></a>
+                </div>
+            </div>
+            <!-- end of header -->
+            <!-- main content -->
+            <div data-role="main" class="ui-content"  style="overflow:hidden;">
+                <h2>Disconnect Noble from Facebook</h2>
+               
+                <button class="facebookbutton" onclick="revoke()"><img src="img/facebook_1.png" />Disconnect Facebook account</button>
+
+            </div>
+            <!-- end of main content -->
+        </div>
+        <!-- END OF PAGE 5 -->
+        <!-- PAGE 1 -->
+        <div data-role="page" id="page1" data-url="page1">
+            <!-- header -->
+            <div data-role="header" data-position="fixed">
+
+                <div class="logo">
+                    <a href="#page1"><img src="img/logo.png" class="ui-btn-left" /></a>
+                </div>
                 <h1>People near you</h1>
+                <div class="settings">
+                    <a class="settingslink" href="#page5"><img  src="img/cog.png"  /></a>
+                </div>
+                
             </div>
             <!-- end of header -->
             <!-- main content -->
@@ -188,9 +239,13 @@ function updateMarkers() {
             <!-- header -->
             <div data-role="header" data-position="fixed">
                 <div class="logo">
-                    <img src="img/logo.png" class="ui-btn-left" />
+                    <a href="#page1"><img src="img/logo.png" class="ui-btn-left" /></a>
                 </div>
                 <h1>Received messages</h1>
+                <div class="settings">
+                    <a class="settingslink" href="#page5"><img  src="img/cog.png"  /></a>
+                </div>
+                
             </div>
             <!-- end of header -->
             <!-- main content -->
@@ -240,9 +295,12 @@ function updateMarkers() {
             <!-- header -->
             <div data-role="header" data-position="fixed">
                 <div class="logo">
-                    <img src="img/logo.png" class="ui-btn-left" />
+                    <a href="#page1"><img src="img/logo.png" class="ui-btn-left" /></a>
                 </div>
                 <h1>Sent messages</h1>
+                <div class="settings">
+                    <a class="settingslink" href="#page5"><img  src="img/cog.png"  /></a>
+                </div>
             </div>
             <!-- end of header -->
             <!-- main content -->
@@ -293,25 +351,110 @@ function updateMarkers() {
             <!-- header -->
             <div data-role="header" data-position="fixed">
                 <div class="logo">
-                    <img src="img/logo.png" class="ui-btn-left" />
+                    <a href="#page1"><img src="img/logo.png" class="ui-btn-left" /></a>
                 </div>
                 <h1>Compose message</h1>
+                <div class="settings">
+                    <a class="back" href=""><img  src="img/circle_left.png"  /></a>
+                </div>
             </div>
             <!-- end of header -->
             <!-- main content -->
             <div data-role="main" class="ui-content">
                 <form action="" id="submitForm" method="post">
                     <textarea name="message" resize="none" id="message">Message...</textarea>
-                    <input type="text" id="id" name="id" value="">
-                    <input type="text" id="lat" name="lat" value="">
-                    <input type="text" id="lng" name="lng" value="">
-                    <input type="text" id="id_to" name="id_to" value="">
+                    <input type="hidden" id="id" name="id" value="">
+                    <input type="hidden" id="lat" name="lat" value="">
+                    <input type="hidden" id="lng" name="lng" value="">
+                    <input type="hidden" id="id_to" name="id_to" value="">
                     <button type="submit" id="sendmessage" value="Send">Send message</button>
                 </form>
             </div>
             <!-- end of main content -->
         <!-- END OF PAGE 4 -->
+        
+        <script src="js/openfb.js"></script>
+        <script>
 
+            openFB.init('257789497758639'); // Defaults to sessionStorage for storing the Facebook token
+
+        //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
+        //  openFB.init('YOUR_FB_APP_ID', 'http://localhost/openfb/oauthcallback.html', window.localStorage);
+            $(document).ready(function(){
+            checklogin();
+            });
+            function checklogin() {
+                console.log("checklogin");
+                  $.ajax({
+                    type: "GET",
+                    url: $baseUrl+"getfblogin.php?id="+id+"",
+                    cache: "false",
+                    dataType: "json",
+                    success: function(data){  
+                      if(!(data.fb[0].fbid) == "") {
+                        window.location.replace("/#page1");
+                        $('.settingslink').css("display", "block" );
+                      }
+
+                    }
+                    ,
+                    error: function(){
+                    
+                    }
+                  });
+            }
+            function login() {
+                openFB.login('email',
+                        function() {
+                            alert('Facebook login succeeded');
+                            window.location.replace("/#page1");
+                            getInfo();
+                            $('.settingslink').css("display", "block" );
+                        },
+                        function(error) {
+                          
+                        });
+            }
+
+            function getInfo() {
+                openFB.api({
+                    path: '/me',
+                    success: function(data) {
+                     connectToFB(data.id);
+                      
+                    },
+                    error: errorHandler});
+            }
+
+            function share() {
+                openFB.api({
+                    method: 'POST',
+                    path: '/me/feed',
+                    params: {
+                        message: 'Testing Facebook APIs'
+                    },
+                    success: function() {
+                        alert('the item was posted on Facebook');
+                    },
+                    error: errorHandler});
+            }
+
+            function revoke() {
+                openFB.revokePermissions(
+                        function() {
+                            connectToFB("");
+                            alert('Facebook is disconnected');
+                             window.location.replace("/#page1");
+                             $('.settingslink').css("display", "none" );
+                        },
+                        errorHandler);
+            }
+
+            function errorHandler(error) {
+                alert(error.message);
+            }
+
+        </script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
