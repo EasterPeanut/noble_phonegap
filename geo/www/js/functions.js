@@ -22,7 +22,7 @@ $('p').on('swiperight',function(){
 
 
 $baseUrl = "http://pixes.nl/";
-var id = 2;
+var id = device.uuid;
 var mycookieLat;
 var mycookieLng;
 var myLat;
