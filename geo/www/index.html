@@ -56,7 +56,7 @@
         function onDeviceReady() {
             checklogin();
             updateUserInfo();
-
+            alert(device.uuid);
             isDeviceReady = true;
            
         }
@@ -388,7 +388,7 @@ function updateMarkers() {
         //  openFB.init('YOUR_FB_APP_ID', 'http://localhost/openfb/oauthcallback.html', window.localStorage);
 
             function checklogin() {
-                alert(device.uuid);
+                
                 console.log("checklogin");
                   $.ajax({
                     type: "GET",
