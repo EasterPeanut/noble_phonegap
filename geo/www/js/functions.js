@@ -372,7 +372,7 @@ function loadMessages(){
           }
         });
       }else{
-        $('.page2-list, .page3-list').append('No sent messages yet.');
+        $('.page2-list, .page3-list').append('No messages yet.');
       }
     },
     error: function(){
