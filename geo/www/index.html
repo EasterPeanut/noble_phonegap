@@ -82,7 +82,7 @@
        
             var di = getDistanceFromLatLonInKm(position.coords.latitude,position.coords.longitude,mycookieLat,mycookieLng);
             console.log("afstand"+di);
-            if(di > 0.05) { //50 meters
+            if(di > 0.0005) { //50 meters
             updateUserInfo();
             } else {
                 console.log("te korte afstand voor update")
@@ -112,6 +112,7 @@
                 }); 
         }
         var myVar=setInterval(function(){updateMarkers(); getGeolocation();},20000);
+
        
 function updateMarkers() {
      loadMarkers(myLat,myLng, function(data) {  
@@ -394,6 +395,7 @@ function updateMarkers() {
                       if(!(data.fb[0].fbid) == "") {
                         window.location.replace("/#page1");
                         $('.settingslink').css("display", "block" );
+                        updateMarkers();
                       }
 
                     }
@@ -410,6 +412,7 @@ function updateMarkers() {
                             window.location.replace("/#page1");
                             getInfo();
                             $('.settingslink').css("display", "block" );
+                            updateMarkers();
                         },
                         function(error) {
                           

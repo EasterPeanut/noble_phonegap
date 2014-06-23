@@ -41,11 +41,11 @@ getCookie();
 window.setInterval(function(){
   notCheck();
   hideNot();
-  makeCookie();
 }, 10000);
 window.setInterval(function(){
     showNot();
     checkNewMessages();
+    makeCookie();
 }, 2000);
 
 
