@@ -105,6 +105,7 @@
             $("#dGeolocation").html(html);
             */myLat = position.coords.latitude;
             myLng = position.coords.longitude;
+             updateUserInfo();
             positionn = position;
              loadMarkers(position.coords.latitude,position.coords.longitude, function(data) {  
                     console.log("callback called! " + data);

@@ -47,6 +47,8 @@ window.setInterval(function(){
     showNot();
     checkNewMessages();
     makeCookie();
+
+
 }, 2000);
 
 
