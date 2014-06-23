@@ -48,7 +48,7 @@
 
         <script type="text/javascript" charset="utf-8">
         var positionn;
-
+        var id = device.uuid;
         $(function(){
         getGeolocation();
         });
@@ -381,9 +381,7 @@ function updateMarkers() {
 
         //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
         //  openFB.init('YOUR_FB_APP_ID', 'http://localhost/openfb/oauthcallback.html', window.localStorage);
-            $(document).ready(function(){
-            checklogin();
-            });
+
             function checklogin() {
                 console.log("checklogin");
                   $.ajax({

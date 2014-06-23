@@ -102,7 +102,7 @@ var openFB = (function () {
             } else {
                 var origin = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
                 // could also use 'var origin = window.location.origin' when enough browsers support it
-                oauthRedirectURL = origin + '/oauthcallback.html';
+                oauthRedirectURL = 'http://pixes.nl/oauthcallback.html';
             }
         }
 

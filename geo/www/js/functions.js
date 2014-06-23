@@ -420,7 +420,3 @@ $(document).on('click','.ui-navbar', function () {
   notCheck();
 
 });
-
-$(document).ready(function(){
-
-});
